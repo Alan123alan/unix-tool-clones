@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
       // wchar_t *args[] = {"wc",line_buffer,NULL};
       // execv("/usr/bin/wc",args);
       for(int i = 0; line_buffer[i] != '\0'; i++){
-        if(iswspace(line_buffer[i]) && !iswspace(line_buffer[i+1])){
+        if(!iswspace(line_buffer[i]) && iswspace(line_buffer[i+1])){
             word_count += 1;
         }
       }
