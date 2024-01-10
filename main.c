@@ -7,6 +7,8 @@
 
 #define MAX_LENGTH 2048
 
+size_t utf8len(const char *s);
+
 int main(int argc, char *argv[]){
   if(strcmp(argv[1], "-c") == 0){
     FILE *fptr;
@@ -56,4 +58,27 @@ int main(int argc, char *argv[]){
     }
     printf("%zu\n", word_count);
   }
+  if(strcmp(argv[1], "-m") == 0){
+    FILE *fptr;
+    fptr = fopen(argv[2],"r"); 
+    if(fptr == NULL){
+      printf("Error opening file '%s' to read.\n", argv[2]);
+      return -1;
+    }
+    char line_buffer[MAX_LENGTH];
+    size_t char_count = 0;
+    while(fgets(line_buffer, MAX_LENGTH, fptr)){
+      char_count += utf8len(line_buffer);
+      // char_count += wcslen(line_buffer);
+    }
+	  printf("byte count: %zu\n", char_count);
+  }
+}
+
+size_t utf8len(const char *s)
+{
+  size_t len = 0;
+  while(*s)
+    len += (*(s++)&0xC0)!=0x80;
+  return len;
 }
