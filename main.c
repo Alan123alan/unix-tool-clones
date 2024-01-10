@@ -3,7 +3,7 @@
 // #include<ctype.h>
 #include<wctype.h>
 #include<wchar.h>
-#include<unistd.h>
+// #include<unistd.h>
 
 #define MAX_LENGTH 2048
 
@@ -14,16 +14,25 @@ size_t get_word_count(char *filename);
 size_t get_char_count(char *filename);
 
 int main(int argc, char *argv[]){
-  if(strcmp(argv[1], "-c") == 0){
-    printf("%zu %s\n", get_byte_count(argv[2]), argv[2]);
-  }else if(strcmp(argv[1], "-l") == 0){
-   printf("%zu %s\n", get_line_count(argv[2]), argv[2]);
-  }else if(strcmp(argv[1], "-w") == 0){
-   printf("%zu %s\n", get_word_count(argv[2]), argv[2]);
-  }else if(strcmp(argv[1], "-m") == 0){
-	  printf("%zu %s\n", get_char_count(argv[2]), argv[2]);
+  if(argc > 1){
+    if(strcmp(argv[1], "-c") == 0){
+      printf("%zu %s\n", get_byte_count(argv[2]), argv[2]);
+    }else if(strcmp(argv[1], "-l") == 0){
+    printf("%zu %s\n", get_line_count(argv[2]), argv[2]);
+    }else if(strcmp(argv[1], "-w") == 0){
+    printf("%zu %s\n", get_word_count(argv[2]), argv[2]);
+    }else if(strcmp(argv[1], "-m") == 0){
+      printf("%zu %s\n", get_char_count(argv[2]), argv[2]);
+    }else{
+      printf("%zu %zu %zu %s\n", get_line_count(argv[1]), get_word_count(argv[1]), get_byte_count(argv[1]), argv[1]);
+    }
   }else{
-    printf("%zu %zu %zu %s\n", get_line_count(argv[1]), get_word_count(argv[1]), get_byte_count(argv[1]), argv[1]);
+    char line_buffer[MAX_LENGTH];
+    size_t char_count = 0;
+    while(fgets(line_buffer, MAX_LENGTH, stdin)){
+      char_count += strlen(line_buffer);
+    }
+    printf("%zu\n", char_count);
   }
 }
 
