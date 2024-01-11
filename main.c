@@ -14,13 +14,31 @@ size_t get_word_count(char *filename);
 size_t get_char_count(char *filename);
 
 int main(int argc, char *argv[]){
+  //setting up variables to keep track of options set
+  //-m and -c options overwrite each other
+  //if file is not set default fgets to stdin instead of file pointer
+  char *line_count_option = "\0";
+  char *word_count_option = "\0";
+  char *char_count_option = "\0";
+  char *byte_count_option = "\0";
+  char *filename = "\0"
+
+  for(int i = 0; i < argc; i++){
+    if(strcmp(argv[i], "-l")){
+
+    }else if(strcmp(argv[i], "-c")){
+
+    }else if(strcmp(argv[i], "-m")){
+
+    }
+  }
   if(argc > 1){
     if(strcmp(argv[1], "-c") == 0){
       printf("%zu %s\n", get_byte_count(argv[2]), argv[2]);
     }else if(strcmp(argv[1], "-l") == 0){
-    printf("%zu %s\n", get_line_count(argv[2]), argv[2]);
+      printf("%zu %s\n", get_line_count(argv[2]), argv[2]);
     }else if(strcmp(argv[1], "-w") == 0){
-    printf("%zu %s\n", get_word_count(argv[2]), argv[2]);
+      printf("%zu %s\n", get_word_count(argv[2]), argv[2]);
     }else if(strcmp(argv[1], "-m") == 0){
       printf("%zu %s\n", get_char_count(argv[2]), argv[2]);
     }else{
