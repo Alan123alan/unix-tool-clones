@@ -58,28 +58,20 @@ int main(int argc, char *argv[]){
     printf("\n");
   }else{
     if(strcmp(line_count_option, "-l") == 0){
-      FILE *fptr;
-      fptr = fopen(filename, "r"); 
       printf("\t%zu", get_line_count(fptr));
-      fclose(fptr);
+      rewind(fptr);
     }
     if(strcmp(word_count_option, "-w") == 0){
-      FILE *fptr;
-      fptr = fopen(filename, "r"); 
       printf("\t%zu", get_word_count(fptr));
-      fclose(fptr);
+      rewind(fptr);
     }
     if(strcmp(char_or_byte_count_option, "-c") == 0){
-      FILE *fptr;
-      fptr = fopen(filename, "r"); 
       printf("\t%zu", get_char_count(fptr));
-      fclose(fptr);
+      rewind(fptr);
     }
     if(strcmp(char_or_byte_count_option, "-m") == 0){
-      FILE *fptr;
-      fptr = fopen(filename, "r"); 
       printf("\t%zu", get_byte_count(fptr));
-      fclose(fptr);
+      rewind(fptr);
     }
     printf("\t%s\n", filename);
   }
