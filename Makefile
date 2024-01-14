@@ -10,3 +10,4 @@ unreadable:
 clean:
 	rm -rf wcclone wcclone.dSYM
 	rm -rf unreadable.txt unreadable_gen unreadable_gen.dSYM
+	rm -rf stdin_storage.txt

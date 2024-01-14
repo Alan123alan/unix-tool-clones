@@ -43,19 +43,33 @@ int main(int argc, char *argv[]){
   FILE *fptr;
   fptr = fopen(filename, "r"); 
   if(fptr == NULL){
+    FILE *stdin_storage;
+    stdin_storage = fopen("stdin_storage.txt", "w"); 
+    char line_buffer[MAX_LENGTH];
+    while(fgets(line_buffer, MAX_LENGTH, stdin)){
+      fputs(line_buffer, stdin_storage);
+    }
+    fclose(stdin_storage);
+    stdin_storage = fopen("stdin_storage.txt", "r");
     if(strcmp(line_count_option, "-l") == 0){
-      printf("\t%zu", get_line_count(stdin));
-    }
-    if(strcmp(char_or_byte_count_option, "-c") == 0){
-      printf("\t%zu", get_char_count(stdin));
-    }
-    if(strcmp(char_or_byte_count_option, "-m") == 0){
-      printf("\t%zu", get_byte_count(stdin));
+      printf("\t%zu", get_line_count(stdin_storage));
+      rewind(stdin_storage);
     }
     if(strcmp(word_count_option, "-w") == 0){
-      printf("\t%zu", get_word_count(stdin));
+      printf("\t%zu", get_word_count(stdin_storage));
+      rewind(stdin_storage);
+    }
+    if(strcmp(char_or_byte_count_option, "-c") == 0){
+      printf("\t%zu", get_char_count(stdin_storage));
+      rewind(stdin_storage);
+    }
+    if(strcmp(char_or_byte_count_option, "-m") == 0){
+      printf("\t%zu", get_byte_count(stdin_storage));
+      rewind(stdin_storage);
     }
     printf("\n");
+    fclose(stdin_storage);
+    fclose(fptr);
   }else{
     if(strcmp(line_count_option, "-l") == 0){
       printf("\t%zu", get_line_count(fptr));
@@ -74,6 +88,7 @@ int main(int argc, char *argv[]){
       rewind(fptr);
     }
     printf("\t%s\n", filename);
+    fclose(fptr);
   }
 }
 
